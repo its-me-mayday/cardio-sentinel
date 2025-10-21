@@ -18,6 +18,8 @@ sqlx = { version = "0.8.6", features = ["runtime-tokio-rustls", "postgres", "uui
 thiserror = "2.0.17"
 time = "0.3.44"
 tokio = { version = "1.48.0", features = ["full"] }
+tower = { version = "0.5.2", features = ["timeout", "util"] }
+tower-http = { version = "0.6.6", features = ["cors", "trace", "compression-br", "request-id", "limit"] }
 tracing = "0.1.41"
 tracing-opentelemetry = "0.32.0"
 tracing-subscriber = { version = "0.3.20", features = ["env-filter", "fmt"] }

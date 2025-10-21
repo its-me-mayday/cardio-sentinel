@@ -1,4 +1,3 @@
-//! Avvio minimale + orchestrazione (niente logica)
 mod config;
 mod telemetry;
 mod state;
@@ -24,7 +23,7 @@ async fn main() {
 
     let app_state = AppState::new(true);
 
-    let router = http::build_router(app_state.clone());
+    let router = http::build_router(app_state.clone(), &cfg.http);
 
     let addr = cfg.http.bind_addr();
     tracing::info!(%addr, "http listen");
