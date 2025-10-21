@@ -13,8 +13,6 @@ pub fn init(tcfg: &TelemetryCfg) {
 }
 
 pub fn init_metrics() -> PrometheusHandle {
-    // Builder con impostazioni di default (counter/gauge/histogram)
-    // installa il recorder globale e ritorna l'handle per il render.
     PrometheusBuilder::new()
         .install_recorder()
         .expect("install prometheus recorder")

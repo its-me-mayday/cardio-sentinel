@@ -269,6 +269,7 @@ dependencies = [
  "hyper",
  "metrics",
  "metrics-exporter-prometheus",
+ "once_cell",
  "opentelemetry",
  "opentelemetry-otlp",
  "serde",
