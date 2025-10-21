@@ -1,10 +1,12 @@
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 
-pub fn init() {
-    let env_filter = std::env::var("RUST_LOG").unwrap_or_else(|_| "info".into());
+use crate::config::TelemetryCfg;
+
+pub fn init(tcfg: &TelemetryCfg) {
+    let filter = EnvFilter::new(tcfg.log_level.clone());
 
     tracing_subscriber::registry()
-        .with(EnvFilter::new(env_filter))
+        .with(filter)
         .with(tracing_subscriber::fmt::layer().compact())
         .init();
 }
