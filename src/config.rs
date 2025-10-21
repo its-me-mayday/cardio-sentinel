@@ -15,6 +15,7 @@ pub struct HttpCfg {
     pub request_timeout: Duration,
     pub idle_timeout: Duration,
     pub body_limit_bytes: usize,
+    pub allowed_origins: Vec<String>,
 }
 
 #[derive(Clone, Debug)]
@@ -63,6 +64,13 @@ impl Config {
         let body_raw = env_get_or("HTTP_BODY_LIMIT", "2MB".into());
         let body_limit_bytes = parse_size_bytes(&body_raw)
             .ok_or_else(|| ConfigError::InvalidBodyLimit(body_raw.clone()))?;
+        
+        let cors_raw = env_get_or("HTTP_CORS_ORIGINS", "".into());
+        let allowed_origins = cors_raw
+            .split(',')
+            .map(|s| s.trim().to_string())
+            .filter(|s| !s.is_empty())
+            .collect::<Vec<_>>();
 
         let log_level = env_get_or("RUST_LOG", "info".into());
 
@@ -72,6 +80,7 @@ impl Config {
             request_timeout,
             idle_timeout,
             body_limit_bytes,
+            allowed_origins,
         };
         let telemetry = TelemetryCfg { log_level };
 

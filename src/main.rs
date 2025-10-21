@@ -21,7 +21,7 @@ async fn main() {
     tracing::info!(app=%cfg.app_name, http=?cfg.http, "boot: starting");
 
 
-    let app_state = AppState::new(true);
+    let app_state = AppState::new(true, cfg.http.request_timeout);
 
     let router = http::build_router(app_state.clone(), &cfg.http);
 
